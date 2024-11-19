@@ -8,7 +8,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { firebaseConfig } from './firebase.config';
-
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,6 +24,14 @@ export const appConfig: ApplicationConfig = {
      provideFirebaseApp(()=>initializeApp(firebaseConfig)),
      provideFirestore(()=>getFirestore()),
      provideStorage(()=>getStorage()),
-     provideAuth(()=>getAuth())
+     provideAuth(()=>getAuth()),
+     provideToastr({
+      timeOut:10000,
+      positionClass:"toast-top-center",
+      preventDuplicates:true,
+      closeButton:true,
+      progressBar:true,
+    }),
+    provideAnimations()
     ]
 };

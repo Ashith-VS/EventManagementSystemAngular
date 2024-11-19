@@ -1,0 +1,54 @@
+<app-header/>
+<div class="d-flex justify-content-center align-items-center gradient-form" style="height: 100vh;">
+    <div class="container py-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-10">
+          <div class="card rounded-3 text-black">
+            <div class="card-body p-md-5 mx-md-4">
+                  <div class="text-center">
+                      <span>Events you've</span>
+                    <h4 class="mt-1 mb-5 pb-1">Participated</h4>
+                  </div>
+                  
+                  <!-- {currentUser?.ticketsBooked?( -->
+                    <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th> Name</th>
+          <th>Venue</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Tickets Booked</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- {currentUser?.ticketsBooked?.map((ticket, i) => ( -->
+          <tr >
+            <td>ticket.name</td>
+            <td>ticket?.venue</td>
+            <td>ticket?.date</td>
+            <td>ticket?.price</td>
+            <td>ticket?.ticketBooked</td>
+            <td>
+                <button  class="btn btn-primary" 
+                >view</button></td>
+                <!-- onClick={() => handleViewClick(ticket)} -->
+          </tr>
+          <!-- ))} -->
+      </tbody>
+    </table>
+  </div>
+   <!-- ) -->
+  <!-- :( -->
+    <div class="text-center">
+                    <h4 class="mt-1 mb-5 pb-1">No Events have been Participated</h4>
+                  </div>
+                <!-- )} -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<app-footer/>

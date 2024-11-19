@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
     this.errorObj={};
     this.handleValidate();
     if(this.registerForm.valid){
-      const formObject:any={...this.registerForm.value};
+      const formObject:any={...this.registerForm.value,role:'user'};
       if(this.avatar){
         formObject['avatar']=this.avatar
       } 

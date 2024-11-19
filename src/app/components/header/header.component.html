@@ -1,0 +1,38 @@
+<header>
+    <div class="px-3 py-4 bg-dark border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a routerLink="/home"
+                    class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    Event Management System
+                </a>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li>
+                        <a routerLink="/home" class="nav-link " routerLinkActive="text-primary" [routerLinkActiveOptions]="{ exact: true }"  >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard" class="nav-link" routerLinkActive="text-primary" >
+                            Dashboard
+                        </a>
+                    </li>
+                    <div class="dropdown text-end">
+                        <a class="d-block text-white text-decoration-none dropdown-toggle show "
+                            data-bs-toggle="dropdown" aria-expanded="false" >
+                            <img src="./assets/icons/avatar.webp" alt="" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" routerLink="#">booked Events</a></li>
+                            <li><a class="dropdown-item" routerLink="#">login</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" routerLink="#">Sign out</a></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

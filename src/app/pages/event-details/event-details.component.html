@@ -1,0 +1,49 @@
+<app-header/>
+
+<div class="d-flex justify-content-center align-items-center gradient-form" >
+    <div class="container py-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-10">
+          <div class="card rounded-3 text-black">
+            
+            <div class="card-body p-md-5 mx-md-4">
+              <!-- {event ? ( -->
+      
+                  <div class="text-center">
+                    <h4 class="mt-1 mb-5 pb-1">event.name</h4>
+                  </div>
+                  <div class="event-image-slider pb-5">
+               <!-- <Slider {...settings}> -->
+               <!-- {event?.image?.map((image, index) => ( -->
+               <!-- <div key={index} class="slider-item"> -->
+              <!-- <img -->
+                 <!-- src={image.url}
+                 /> -->
+                 <!-- alt={`Event Image ${index + 1}`} -->
+                 <!-- style={{ width: '100%', height: '300px', objectFit: 'cover' }} -->
+              <!-- </div> -->
+         <!-- ))} -->
+       <!-- </Slider> -->
+        </div>
+                  <p><strong>Event On :</strong> event.date</p>
+                  <p><strong>Timings : </strong> event.startTime- event.endTime</p>
+                  <p><strong>Venue : </strong>event.venue</p>
+                  <p><strong>Participant Limit : </strong> event.participantLimit</p>
+                  <p><strong>Available tickets : </strong>event?.AvailableTickets</p>
+                  <p><strong>Organizer : </strong> event.description</p>
+                  <p><strong>Description : </strong> event.details || 'No additional details provided.'</p>
+                  <!-- <button class="d-flex justify-content-center btn btn-primary" onClick={handleModal} disabled={event?.AvailableTickets<=0 ||currentUser?.role==="admin"}>Book Now</button> -->
+                <!-- </> -->
+              <!-- ) : ( -->
+                <div class="text-center">
+                  <h4 class="mt-1 mb-5 pb-1">Event not found</h4>
+                </div>
+              <!-- )} -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<app-footer/>

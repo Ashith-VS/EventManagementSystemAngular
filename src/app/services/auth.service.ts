@@ -18,9 +18,14 @@ export class AuthService {
   createUser(data:any) {
   const {email, password } = data;
    return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
- // Add user data to Firestore after the user is created
     switchMap((res)=>from(setDoc(doc(this.firestore, 'users', res.user.uid),{...data,id: res.user.uid,}))) 
    )  
+  }
+
+
+  currentUser(data:any){
+    
+
   }
 
   // Sign out

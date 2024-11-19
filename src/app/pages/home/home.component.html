@@ -1,1 +1,39 @@
-<p>home works!</p>
+<app-header />
+
+<div class="d-flex justify-content-center align-items-center gradient-form">
+    <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12">
+                <div class="card rounded-3 text-black">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                            <span>All upcoming</span>
+                            <h4 class="mt-1 mb-5 pb-1">Events</h4>
+                        </div>
+                        <div class="row text-center">
+                            @for(event of events; track $index){
+                            <div class="col-md-3 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <img src='./assets/icons/event.jpg' alt='' className="card-img-top"
+                                            style="height: 200px; width: 200px;object-fit:cover;background: black;" />
+                                        <h5 class="card-title">{{event.name}}</h5>
+                                        <p class="card-text">{{event.description}}</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">{{event.date}}</small>
+                                        </p>
+                                        <a [routerLink]="'/event/'+ event.id" class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer />

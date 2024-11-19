@@ -1,0 +1,84 @@
+<app-header />
+<div class="d-flex">
+    <app-sidebar />
+
+    <div class="container">
+        <h3 class="mt-5">{{ id ? 'Update Event' : 'Create Event' }}</h3>
+
+        @if (errorObjArr().length>0) {
+        <ul class="error-message">
+            @for (item of errorObjArr(); track $index) {
+            <li (click)="focusInput(item)" class="error" tabindex="0">{{errorObj[item]}}</li>
+            }
+        </ul>
+        }
+
+        <div class="col-md-8 p-3">
+            <form [formGroup]="eventForm" (submit)="handleSubmit($event)">
+                <!-- Event Images -->
+                <div class="form-group mb-4">
+                    <label for="image">Event Images</label>
+                    <input type="file" class="form-control" multiple id="image" #image accept="image/*"
+                        (change)="handleFileChange($event)" />
+                </div>
+                @if(previewImages.length > 0){
+                @for(img of previewImages; track $index){
+                <div style="position: relative; display: inline-block;">
+                    <img [src]="img.url" alt="Preview" style="width: 100px; height: 100px; margin: 5px;" />
+                    <img src="./assets/icons/close.png" alt=""
+                        style="position: absolute; top: 0; right: 0; cursor: pointer; " class="img"
+                        (click)="handleRemoveImage($index)">
+                </div>
+                }
+                }
+
+                <div class="form-group mb-4">
+                    <label for="name">Event Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" />
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="description">Event Description</label>
+                    <textarea class="form-control" id="description" formControlName="description"></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="date">Event Date</label>
+                    <input type="date" class="form-control" id="date" formControlName="date" />
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="venue">Event Venue</label>
+                    <input type="text" class="form-control" id="venue" formControlName="venue" />
+                </div>
+
+                <!-- Start Time & End Time -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" class="form-control" id="startTime" formControlName="startTime" />
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="endTime">End Time</label>
+                        <input type="time" class="form-control" id="endTime" formControlName="endTime" />
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="price">Event Price</label>
+                    <input type="text" class="form-control" id="price" formControlName="price"
+                        placeholder="Enter 0 for free events" />
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="participantLimit">Event Participant Limit</label>
+                    <input type="text" class="form-control" id="participantLimit" formControlName="participantLimit" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">{{ id ? 'Update Event' : 'Create Event' }}</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<app-footer />
