@@ -1,5 +1,4 @@
 <app-header />
-
 <div class="d-flex justify-content-center align-items-center gradient-form">
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
@@ -15,7 +14,8 @@
                             <div class="col-md-3 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <img src='./assets/icons/event.jpg' alt='' className="card-img-top"
+                                        <img [src]="event.previewImages.length>0?event.previewImages[0]:'./assets/icons/event.jpg'"
+                                            alt='' className="card-img-top"
                                             style="height: 200px; width: 200px;object-fit:cover;background: black;" />
                                         <h5 class="card-title">{{event.name}}</h5>
                                         <p class="card-text">{{event.description}}</p>
@@ -27,7 +27,6 @@
                                 </div>
                             </div>
                             }
-
                         </div>
                     </div>
                 </div>

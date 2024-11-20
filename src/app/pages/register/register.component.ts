@@ -64,7 +64,6 @@ export class RegisterComponent implements OnInit {
       } 
 this.auth.createUser(formObject).subscribe({
   next:()=>{
-    console.log('User created successfully');
     this.showModal=true;
   },
   error: (err) => {

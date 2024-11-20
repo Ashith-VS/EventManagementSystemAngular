@@ -1,54 +1,75 @@
-<app-header/>
+<app-header />
 <div class="d-flex justify-content-center align-items-center gradient-form" style="height: 100vh;">
-    <div class="container py-5">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-10">
-          <div class="card rounded-3 text-black">
-            <div class="card-body p-md-5 mx-md-4">
-                  <div class="text-center">
-                      <span>Events you've</span>
-                    <h4 class="mt-1 mb-5 pb-1">Participated</h4>
-                  </div>
-                  
-                  <!-- {currentUser?.ticketsBooked?( -->
-                    <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th> Name</th>
-          <th>Venue</th>
-          <th>Date</th>
-          <th>Price</th>
-          <th>Tickets Booked</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- {currentUser?.ticketsBooked?.map((ticket, i) => ( -->
-          <tr >
-            <td>ticket.name</td>
-            <td>ticket?.venue</td>
-            <td>ticket?.date</td>
-            <td>ticket?.price</td>
-            <td>ticket?.ticketBooked</td>
-            <td>
-                <button  class="btn btn-primary" 
-                >view</button></td>
-                <!-- onClick={() => handleViewClick(ticket)} -->
-          </tr>
-          <!-- ))} -->
-      </tbody>
-    </table>
-  </div>
-   <!-- ) -->
-  <!-- :( -->
-    <div class="text-center">
-                    <h4 class="mt-1 mb-5 pb-1">No Events have been Participated</h4>
-                  </div>
-                <!-- )} -->
+  <div class="container py-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-10">
+        <div class="card rounded-3 text-black">
+          <div class="card-body p-md-5 mx-md-4">
+            <div class="text-center">
+              <span>Events you've</span>
+              <h4 class="mt-1 mb-5 pb-1">Participated</h4>
             </div>
+            @if(currentUser.ticketsBooked){
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th> Name</th>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th>Tickets Booked</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for(ticket of currentUser.ticketsBooked; track $index){
+                  <tr>
+                    <td>{{ticket.name}}</td>
+                    <td>{{ticket?.venue}}</td>
+                    <td>{{ticket?.date}}</td>
+                    <td>{{ticket?.price}}</td>
+                    <td>{{ticket?.ticketBooked}}</td>
+                    <td>
+                      <button class="btn btn-primary" (click)="handleViewTicket(ticket)">view</button>
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+            }@else {
+            <div class="text-center">
+              <h4 class="mt-1 mb-5 pb-1">No Events have been Participated</h4>
+            </div>
+            }
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <!-- ticket modal  -->
+  @if(ticketShowModal){
+  <div class="modal" [class]="ticketShowModal ? '' : 'fade' " tabindex="-1" aria-labelledby="successModalLabel"
+    aria-hidden="true"
+    style="display: flex;background: rgba(0, 0, 0, 0.5);align-items: center; justify-content: center;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Ticket Details</h5>
+        </div>
+        <div class="modal-body" style="min-width: 300px;">
+          <p><strong>Event Name:</strong> {{selectedTicket?.name}}</p>
+          <p><strong>Date:</strong> {{selectedTicket?.date}}</p>
+          <p><strong>Venue:</strong> {{selectedTicket?.venue}}</p>
+          <p><strong>Tickets:</strong> {{selectedTicket?.ticketBooked}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="handleCloseModal()">close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
 </div>
-<app-footer/>
+<app-footer />

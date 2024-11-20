@@ -10,6 +10,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { firebaseConfig } from './firebase.config';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { rootReducer } from './redux';
 
 
 export const appConfig: ApplicationConfig = {
@@ -17,10 +18,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), 
     provideClientHydration(),
-    // provideStore(),
-    //  importProvidersFrom([
-    //   StoreModule.forRoot()
-    //  ]),
+    provideStore(),
+     importProvidersFrom([
+      StoreModule.forRoot(rootReducer)
+     ]),
      provideFirebaseApp(()=>initializeApp(firebaseConfig)),
      provideFirestore(()=>getFirestore()),
      provideStorage(()=>getStorage()),

@@ -7,6 +7,7 @@ import { ApiListService } from '../../services/api-list.service';
 import { ToastrService } from 'ngx-toastr';
 import { getDownloadURL, ref, Storage, uploadBytesResumable } from '@angular/fire/storage';
 import { ActivatedRoute } from '@angular/router';
+import { eventModel } from '../../models/event.model';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -21,7 +22,7 @@ export class AdminDashboardComponent implements OnInit {
   previewImages: { url: string}[] = [];
   uid:string = Date.now().toString()
   id: string | null = null; // Set to a value for 'Update Event'
-  event: any[]=[]
+  event: eventModel[]=[]
   
 
   constructor(private fb: FormBuilder,private eventService:ApiListService,private toast :ToastrService,private storage:Storage,private route:ActivatedRoute) {
@@ -41,7 +42,7 @@ export class AdminDashboardComponent implements OnInit {
     // params
     this.id=this.route.snapshot.paramMap.get('id')
     // console.log('this.id: ', this.id);
-    this.eventService.GetAllEvents().subscribe((res)=>{
+    this.eventService.GetAllEvents().subscribe((res:any)=>{
       this.event=res
       if(this.id){
         const eventToEdit=this.event.filter(e=>e.id===this.id)[0]

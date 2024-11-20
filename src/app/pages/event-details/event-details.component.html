@@ -1,49 +1,108 @@
-<app-header/>
+<app-header />
 
-<div class="d-flex justify-content-center align-items-center gradient-form" >
-    <div class="container py-5">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-10">
-          <div class="card rounded-3 text-black">
-            
-            <div class="card-body p-md-5 mx-md-4">
-              <!-- {event ? ( -->
-      
-                  <div class="text-center">
-                    <h4 class="mt-1 mb-5 pb-1">event.name</h4>
-                  </div>
-                  <div class="event-image-slider pb-5">
-               <!-- <Slider {...settings}> -->
-               <!-- {event?.image?.map((image, index) => ( -->
-               <!-- <div key={index} class="slider-item"> -->
-              <!-- <img -->
-                 <!-- src={image.url}
-                 /> -->
-                 <!-- alt={`Event Image ${index + 1}`} -->
-                 <!-- style={{ width: '100%', height: '300px', objectFit: 'cover' }} -->
-              <!-- </div> -->
-         <!-- ))} -->
-       <!-- </Slider> -->
-        </div>
-                  <p><strong>Event On :</strong> event.date</p>
-                  <p><strong>Timings : </strong> event.startTime- event.endTime</p>
-                  <p><strong>Venue : </strong>event.venue</p>
-                  <p><strong>Participant Limit : </strong> event.participantLimit</p>
-                  <p><strong>Available tickets : </strong>event?.AvailableTickets</p>
-                  <p><strong>Organizer : </strong> event.description</p>
-                  <p><strong>Description : </strong> event.details || 'No additional details provided.'</p>
-                  <!-- <button class="d-flex justify-content-center btn btn-primary" onClick={handleModal} disabled={event?.AvailableTickets<=0 ||currentUser?.role==="admin"}>Book Now</button> -->
-                <!-- </> -->
-              <!-- ) : ( -->
-                <div class="text-center">
-                  <h4 class="mt-1 mb-5 pb-1">Event not found</h4>
-                </div>
-              <!-- )} -->
+<div class="d-flex justify-content-center align-items-center gradient-form">
+  <div class="container py-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-10">
+        <div class="card rounded-3 text-black">
+          <div class="card-body p-md-5 mx-md-4">
+            @if(!isEmptyfilteredEvents()){
+            <div class="text-center">
+              <h4 class="mt-1 mb-5 pb-1">{{filteredEvents.name}}</h4>
             </div>
+            <div class="event-image-slider pb-5">
+              <img
+                [src]="filteredEvents.previewImages&&filteredEvents.previewImages.length>0?filteredEvents.previewImages[0]:'./assets/icons/event.jpg'"
+                alt="" style="width: 100%;height:300px;object-fit: cover;">
+            </div>
+            <p><strong>Event On :</strong> {{filteredEvents.date}}</p>
+            <p><strong>Timings : </strong> {{filteredEvents.startTime+'-'+ filteredEvents.endTime}}</p>
+            <p><strong>Venue : </strong>{{filteredEvents.venue}}</p>
+            <p><strong>Participant Limit : </strong> {{filteredEvents.participantLimit}}</p>
+            <p><strong>Available tickets : </strong>{{filteredEvents.AvailableTickets}}</p>
+            <p><strong>Organizer : </strong> {{filteredEvents.description}}</p>
+            <p><strong>Description : </strong> {{filteredEvents.details || 'No additional details provided.'}}</p>
+            <button class="d-flex justify-content-center btn btn-primary" (click)="handleModal()"
+              [disabled]="convertToNumber(filteredEvents.AvailableTickets) <=0 || currentUser.role =='admin'">Book
+              Now</button>
+            }@else{
+            <div class="text-center">
+              <h4 class="mt-1 mb-5 pb-1">Event not found</h4>
+            </div>
+            }
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-<app-footer/>
+  <!-- login modal -->
+  @if(loginModalOpen){
+  <div class="modal" [class]="loginModalOpen ? '' : 'fade' " tabindex="-1" aria-labelledby="successModalLabel"
+    aria-hidden="true"
+    style="display: flex;background: rgba(0, 0, 0, 0.5);align-items: center; justify-content: center;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Login Required</h5>
+        </div>
+        <div class="modal-body">
+          <p>Please log in to book tickets for this event.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="handleNavigate('login')">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+  <!-- confirm modal for booking -->
+  @if(confirmModalOpen){
+  <div class="modal" [class]="confirmModalOpen ? '' : 'fade' " tabindex="-1" aria-labelledby="successModalLabel"
+    aria-hidden="true"
+    style="display: flex;background: rgba(0, 0, 0, 0.5);align-items: center; justify-content: center;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Conformation</h5>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to attend this event?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="handleCloseConfirm()">cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="handleBookEventModal()">Book
+            ticket</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+  <!-- Ticket booking modal -->
+  @if(eventAttendModalOpen){
+  <div class="modal" [class]="eventAttendModalOpen ? '' : 'fade' " tabindex="-1" aria-labelledby="successModalLabel"
+    aria-hidden="true"
+    style="display: flex;background: rgba(0, 0, 0, 0.5);align-items: center; justify-content: center;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Tickets</h5>
+        </div>
+        <div class="modal-body">
+          <p>Choose the number of tickets you want to book</p>
+          <input type="number" [(ngModel)]="selectedTickets" class="form-control mb-3" min="1" max="5" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="handleBookEventclose()">cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="handleBookEventTicket()">Attend</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<app-footer />

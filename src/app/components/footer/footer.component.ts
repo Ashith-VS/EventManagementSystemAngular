@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  handleFocusTop(){
+    window.scroll({top: 0, behavior: "smooth"});
+  }
+
 }

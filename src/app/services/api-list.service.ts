@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { collection, doc, Firestore, getDocs, setDoc, updateDoc } from '@angular/fire/firestore';
+import { arrayUnion, collection, doc, Firestore, getDocs, setDoc, updateDoc } from '@angular/fire/firestore';
 import { from, map } from 'rxjs';
 
 @Injectable({
@@ -24,6 +24,14 @@ export class ApiListService {
     const updateEvent = doc(this.firestore, 'event', id);
     return from(updateDoc(updateEvent,{...data}))
   }
+
+  updateUserDocById(id:string,data:any){
+    const updateUser = doc(this.firestore, 'users', id);
+    return from(updateDoc(updateUser,{ticketsBooked:arrayUnion({...data}),}))
+  }
+
+
+
 
 
 
