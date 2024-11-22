@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from '../../redux/selectors/authentication.selector';
@@ -14,10 +14,22 @@ import { authenticationAction } from '../../redux/actions/authentication.action'
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('dropdownContainer') dropdownContainer!:ElementRef;
   currentUser:userModel=new Object() as userModel
   isDropdownOpen = false; 
 
   constructor(private store:Store,private authService:AuthService,private router:Router) { }
+
+  @HostListener('document:click',[`$event.target`])
+  public onClick(targetElement:HTMLElement):void{
+    const clickedInside = this.dropdownContainer.nativeElement.contains(targetElement);
+    if(!clickedInside&& this.isDropdownOpen){
+      this.isDropdownOpen=false
+    }
+  }
+
+
+
   ngOnInit(): void {
     this.authService.getcurrentUserId().subscribe((data:any) => {
       if(data.uid){

@@ -20,20 +20,21 @@
                         </a>
                     </li>
                     }
-                    <div class="dropdown text-end">
+                    <div class="dropdown text-end" #dropdownContainer>
                         <a class="d-block text-white text-decoration-none dropdown-toggle" (click)="toggleDropdown()"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="./assets/icons/avatar.webp" alt="" width="32" height="32" class="rounded-circle">
+                            <img [src]="currentUser.avatar?currentUser.avatar:'./assets/icons/avatar.webp'" alt=""
+                                width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" [class]="{'show':isDropdownOpen}">
                             @if(isCurrentUserEmpty()) {
-                                <li><a class="dropdown-item" routerLink="/login">login</a></li>
+                            <li><a class="dropdown-item" routerLink="/login">login</a></li>
                             }@else{
-                                <li><a class="dropdown-item" routerLink="/bookedEvents">booked Events</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" (click)="handleLogout()">Sign out</a></li>
+                            <li><a class="dropdown-item" routerLink="/bookedEvents">booked Events</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" (click)="handleLogout()">Sign out</a></li>
                             }
                         </ul>
                     </div>
